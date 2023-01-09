@@ -9,19 +9,23 @@ const SignupForm = () => {
 
   const formik = useFormik({
     initialValues: {
-      subject:'',
-      description:'',
-      category:''
+      name:'',
+      quantityPerUnit:'',
+      unitPrice:'',
+      unitsInStock: ''
     },
     validationSchema: Yup.object({
-      subject: Yup.string()
+      name: Yup.string()
         .max(15, 'Must be 15 characters or less').min(3,'Must be 3 or more')
         .required('Required'),
-        description: Yup.string()
-        .max(15, 'Must be 15 characters or less').min(3,'Must be 3 or more')
+        quantityPerUnit: Yup.string()
+        .max(15, 'Must be 15 characters or less').min(2,'Must be 3 or more')
         .required('Required'),
-        category: Yup.string()
-        .max(15, 'Must be 15 characters or less').min(3,'Must be 3 or more')
+        unitPrice: Yup.string()
+        .max(15, 'Must be 15 characters or less').min(1,'Must be 3 or more')
+        .required('Required'),
+        unitsInStock: Yup.string()
+        .max(15, 'Must be 15 characters or less').min(1,'Must be 3 or more')
         .required('Required'),
     }),
     onSubmit: values => {
@@ -32,43 +36,55 @@ const SignupForm = () => {
   return (
     
     <form onSubmit={formik.handleSubmit}>
-      <label htmlFor="subject">subject</label>
+      <label htmlFor="name">Product name</label>
       <input
-        id="subject"
-        name="subject"
+        id="name"
+        name="name"
         type="text"
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
-        value={formik.values.subject}
+        value={formik.values.name}
       />
-      {formik.touched.subject && formik.errors.subject ? (
-        <div>{formik.errors.subject}</div>
+      {formik.touched.name && formik.errors.name ? (
+        <div>{formik.errors.name}</div>
       ) : null}
 
-      <label htmlFor="description">description</label>
+      <label htmlFor="quantityPerUnit">quantityPerUnit</label>
       <input
-        id="description"
-        name="description"
+        id="quantityPerUnit"
+        name="quantityPerUnit"
         type="text"
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
-        value={formik.values.description}
+        value={formik.values.quantityPerUnit}
       />
-      {formik.touched.description && formik.errors.description ? (
-        <div>{formik.errors.description}</div>
+      {formik.touched.quantityPerUnit&& formik.errors.quantityPerUnit? (
+        <div>{formik.errors.quantityPerUnit}</div>
       ) : null}
 
-      <label htmlFor="category">category</label>
+      <label htmlFor="unitPrice">unitPrice</label>
       <input
-        id="category"
-        name="category"
+        id="unitPrice"
+        name="unitPrice"
         type="text"
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
-        value={formik.values.category}
+        value={formik.values.unitPrice}
       />
-      {formik.touched.category && formik.errors.category ? (
-        <div>{formik.errors.category}</div>
+      {formik.touched.unitPrice && formik.errors.unitPrice ? (
+        <div>{formik.errors.unitPrice}</div>
+      ) : null}
+       <label htmlFor="name">unitsInStock</label>
+      <input
+        id="unitsInStock"
+        name="unitsInStock"
+        type="text"
+        onChange={formik.handleChange}
+        onBlur={formik.handleBlur}
+        value={formik.values.unitsInStock}
+      />
+      {formik.touched.unitsInStock && formik.errors.unitsInStock ? (
+        <div>{formik.errors.unitsInStock}</div>
       ) : null}
       <button  type="submit" >Submit</button>
       <Toaster/>

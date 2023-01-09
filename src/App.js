@@ -6,7 +6,6 @@ import './App.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Form from './components/Form';
 import Carddetail from "./components/Carddetail";
-import Carousel from "./components/Carousel";
 import Notfound from "./components/Notfound";
 import Footer from "./components/Footer";
 
@@ -21,7 +20,6 @@ function App() {
     <Route path="/form" element={<Form/>} />
     <Route path="/" element={<Home/>} />
     <Route path="*" element={<Notfound/>}/>
-    <Route path="/carousel" element={<Carousel/>}/>
 
     </Routes>
     <Footer/>

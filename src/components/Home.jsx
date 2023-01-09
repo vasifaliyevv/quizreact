@@ -15,7 +15,7 @@ function Home() {
     return (
         
         
-<div style={{background:'url("https://compote.slate.com/images/697b023b-64a5-49a0-8059-27b963453fb1.gif")',height:'',backgroundRepeat:"no-repeat" ,width:"100%", backgroundSize:"100% "}}>
+<div style={{background:'url("https://compote.slate.com/images/697b023b-64a5-49a0-8059-27b963453fb1.gif")',height:'' ,width:"100%", backgroundSize:"100% " ,display:'flex',flexWrap:'wrap',paddingLeft:'60px'}}>
 {
 
 <Carousel/>
@@ -25,10 +25,10 @@ function Home() {
 {
     users.map((user,idx) => {
         return (
-            <div>
+           <div> <ul className='kart' style={{display:'flex',width:'100%',marginTop:'100px' }}>
             
-            <Kart key={idx} user={user} /></div>
-            
+            <Kart key={idx} user={user} /></ul>
+            </div>
         )
     }
     )
