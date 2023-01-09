@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import './card.css'
-import { Link } from "react-router-dom";
 
 
 class Card extends Component {
@@ -83,7 +82,7 @@ class User extends Component {
   render(){
     const {disabled, name, age,address,id} = this.state;
     return (
-      <Link to='/carddetail/{}$'>
+     
       <li className="item">
         <input value={name} disabled={disabled}  onChange={this.handleChange('name')}></input>
         <input value={age} disabled={disabled}  onChange={this.handleChange('age')}/>
@@ -91,7 +90,7 @@ class User extends Component {
         
         <div className="btn-remove" onClick={this.props.remove}>remove</div>
       </li>
-      </Link>
+
     )
   }
 }

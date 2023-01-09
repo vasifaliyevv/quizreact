@@ -13,6 +13,7 @@ const Navbar = () => {
               height={60}
               style={{ borderRadius: "50%" }}
               src="https://avatars.githubusercontent.com/u/87971060?v=4"
+              alt="ss"
             />
             <h1>Rashad teacher best</h1>
           </div>

@@ -1,76 +1,79 @@
-import React, { Component } from 'react';
+import React from 'react'
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
 import axios from 'axios';
-import './form.css';
-import {Helmet} from "react-helmet";
+import { toast, Toaster } from 'react-hot-toast';
 
-import toast, { Toaster } from 'react-hot-toast';
-const notify = () => toast.success('Successfully added');
 
-class Form extends Component {
-  constructor() {
-    super();
-    this.state = {
-      name: '',
-      age: '',
-      address:'',
-      users: []
-    }
-  }
+const SignupForm = () => {
 
-  componentDidMount() {
-    this.getUsers();
-  }
-
-  getUsers = () => {
-    axios.get('http://localhost:3000/users').then(res => this.setState({users: res.data}));
-  }
-
-  handleChange = (name) => event => {
-    this.setState({ [name]: event.target.value });
-  }
-  
- 
-
-  handleSubmit = () => {
-    axios.post('http://localhost:3000/users', {name: this.state.name, age: this.state.age, address: this.state.address})
-      .then(this.setState({name: '', age: '',address: ''}))
-      .then(() => this.getUsers());
-      notify ()
-  }
-
-  handleEdit = (value) => {
-    axios.put(`http://localhost:3000/users/${value.id}`, {name: value.name, age: value.age, address: value.address})
-
-      .then(() => this.getUsers())
-  }
-
-  render() {
-    return (
-        
-      <div className="App">
-      <Helmet>
-                <meta charSet="utf-8" />
-                <title>Form Page    </title>
-                <link rel="canonical" href="http://mysite.com/example" />
-            </Helmet>
-      <Toaster/>
-        <form onSubmit={this.handleSubmit}>
-          <div className="title">add user</div>
-          <input placeholder="name" type="text" value={this.state.name} onChange={this.handleChange('name')}/>
-          <input placeholder="age" type="text" value={this.state.age} onChange={this.handleChange('age')}/>
-          <input placeholder="address" type="text" value={this.state.address} onChange={this.handleChange('address')}/>
-          
-          <div className="btn"  onClick={this.handleSubmit}>send</div>
+  const formik = useFormik({
+    initialValues: {
+      subject:'',
+      description:'',
+      category:''
+    },
+    validationSchema: Yup.object({
+      subject: Yup.string()
+        .max(15, 'Must be 15 characters or less').min(3,'Must be 3 or more')
+        .required('Required'),
+        description: Yup.string()
+        .max(15, 'Must be 15 characters or less').min(3,'Must be 3 or more')
+        .required('Required'),
+        category: Yup.string()
+        .max(15, 'Must be 15 characters or less').min(3,'Must be 3 or more')
+        .required('Required'),
+    }),
+    onSubmit: values => {
+      toast.success('Successfully posted!')
+      axios.post('https://northwind.vercel.app/api/products',values).then((res)=>console.log(res.data))
+    },
+  });
+  return (
     
+    <form onSubmit={formik.handleSubmit}>
+      <label htmlFor="subject">subject</label>
+      <input
+        id="subject"
+        name="subject"
+        type="text"
+        onChange={formik.handleChange}
+        onBlur={formik.handleBlur}
+        value={formik.values.subject}
+      />
+      {formik.touched.subject && formik.errors.subject ? (
+        <div>{formik.errors.subject}</div>
+      ) : null}
 
-        </form>
+      <label htmlFor="description">description</label>
+      <input
+        id="description"
+        name="description"
+        type="text"
+        onChange={formik.handleChange}
+        onBlur={formik.handleBlur}
+        value={formik.values.description}
+      />
+      {formik.touched.description && formik.errors.description ? (
+        <div>{formik.errors.description}</div>
+      ) : null}
 
-       
-      </div>
-    );
-  }
-}
+      <label htmlFor="category">category</label>
+      <input
+        id="category"
+        name="category"
+        type="text"
+        onChange={formik.handleChange}
+        onBlur={formik.handleBlur}
+        value={formik.values.category}
+      />
+      {formik.touched.category && formik.errors.category ? (
+        <div>{formik.errors.category}</div>
+      ) : null}
+      <button  type="submit" >Submit</button>
+      <Toaster/>
+    </form>
+  );
+};
 
-
-
-export default Form;
+export default SignupForm

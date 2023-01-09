@@ -1,16 +1,37 @@
-import React from 'react'
-import {Helmet} from "react-helmet";
+import axios from 'axios';
+import React, { useEffect, useState } from 'react'
+import { toast, Toaster } from 'react-hot-toast';
+import {  useParams } from 'react-router-dom';
 
-const Carddetail = () => {
-  return (
-    
-    <div>
-    <Helmet>
-                <meta charSet="utf-8" />
-                <title>Card detail</title>
-                <link rel="canonical" href="http://mysite.com/example" />
-            </Helmet>Carddetail</div>
-  )
+function Detail() {
+    const [flags, setFlags] = useState([])
+    const { id } = useParams()
+    function Delete() {
+        axios.delete(`https://northwind.vercel.app/api/products/${id}`)
+            .then(() => console.log({ status: 'Delete successful' }));
+            toast.success('Successfully deleted!')
+    }
+    useEffect(() => {
+        axios
+            .get(`https://northwind.vercel.app/api/products/${id}`)
+            .then((res) => {
+                setFlags(res.data);
+
+            }, 3000);
+    }, []);
+    return (
+      
+        <div className='cardinfo'>
+            <div className='cardinfotext'>
+                <p>Name: {flags.name}</p>
+                <p>quantityPerUnit: {flags.quantityPerUnit}</p>
+                <p>InStock: {flags.unitsInStock}</p>
+            </div>
+                <button onClick={Delete}>Delete</button>
+            <Toaster/>
+        </div>
+ 
+    );
 }
 
-export default Carddetail
+export default Detail

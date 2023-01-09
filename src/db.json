@@ -1,15 +1,9 @@
 {
   "users": [
     {
-      "name": "asdf",
-      "age": "FD",
-      "address": "fdsf",
-      "id": 1
-    },
-    {
-      "name": "dsad",
-      "age": "dasdsad",
-      "address": "sadasd",
+      "name": "Nurlan",
+      "age": "19",
+      "address": "baki",
       "id": 2
     }
   ]
